@@ -49,11 +49,12 @@ class Graph:
             # If it has not been visited...
             if v not in visited:
                 # Mark it as visited
-                print(v)
+                print(f"bft: {v}")
                 visited.add(v)
                 # Then add all neighbors to the back of the queue  
                 for neighbor in self.get_neighbors(v):
                     q.enqueue(neighbor)
+        print("\n")
 
     def dft(self, starting_vertex):
         """
@@ -74,29 +75,44 @@ class Graph:
             # If it has not been visited...
             if v not in visited:
                 # Mark it as visited
+                print(f"dft: {v}")
                 visited.add(v)
                 # Then add all neighbors to the back of the queue
                 for neighbor in self.get_neighbors(v):
                     s.push(neighbor)
-        print(visited)
+        print("\n")
 
-    def dft_recursive(self, starting_vertex, s=Stack(), visited = set()):
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
-        # Create an empty queue
         s = Stack()
-        # Add the starting vertex_id to the queue
         s.push(starting_vertex)
-        #  Create an empty set to store visited nodes
-        visited = self.vertices()
-        # while  the stack is not empty
+        print(f"visited at start: {visited}")
+        if visited == None:
+            visited = set()
         v = s.pop()
+
+
+        # Check if node is visited
+        # if not ...
+        if v not in visited:
+            # print
+            print(f"dft_recur: {v}")
             # mark it as visited
-            # then add all neighbors to the back of the queue  
+            visited.add(v)
+            print(f"V was added to visited: {visited}")
+            # call  DFT_Recursive on each neighbor.
+
+            for neighbor in self.get_neighbors(v):
+                print(f"the Neighbor of v({v}) is : {neighbor}")
+                return self.dfs_recursive(neighbor, visited)
+                
+            
+
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -165,7 +181,7 @@ if __name__ == '__main__':
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     '''
-    print(graph.vertices)
+    print(f"graph.vertices test: {graph.vertices}")
 
     '''
     Valid BFT paths:
